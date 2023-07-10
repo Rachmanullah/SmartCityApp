@@ -4,6 +4,7 @@ import React from 'react'
 const Register = ({navigation}) => {
     return (
         <View>
+            <StatusBar barStyle="dark-content" backgroundColor="grey"/>
             <Text style={styles.Text}>Sistem Pelayanan Pelaporan Jalan Rusak</Text>
             <View style={{ marginTop: 15, alignItems: 'center'}}>
             <Text style={styles.label}>Nama Lengkap</Text>

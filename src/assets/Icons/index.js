@@ -1,7 +1,19 @@
-import Akun from './Akun.svg'
-import Compas from './compass.svg'
-import Eye from './eye.svg'
-import Laporan from './Laporan.svg'
-import Home from './Home.svg'
+import IconAkun from './IconAccount.png'
+import IconAkunActive from './IconAccountActive.png'
+// import IconCompas from './compass.svg'
+// import IconEye from './eye.svg'
+import IconLaporan from './IconLaporan.png'
+import IconLaporanActive from './IconLaporanActive.png'
+import IconHome from './IconHome.png'
+import IconHomeActive from './IconHomeActive.png'
 
-export{Akun,Compas,Eye,Laporan,Home}
+export{
+    IconAkun,
+    IconAkunActive,
+    // IconCompas,
+    // IconEye,
+    IconLaporan,
+    IconLaporanActive,
+    IconHome,
+    IconHomeActive
+}

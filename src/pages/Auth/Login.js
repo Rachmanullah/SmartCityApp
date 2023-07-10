@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react'
 
 const Login = ({navigation}) => {
@@ -13,6 +13,7 @@ const Login = ({navigation}) => {
     }
     return (
         <View>
+            <StatusBar barStyle="dark-content" backgroundColor="grey"/>
             <Text style={styles.Text}>Sistem Pelayanan Pelaporan Jalan Rusak</Text>
             <View style={{ marginTop: 150, alignItems: 'center'}}>
                 <Text style={styles.label}>Email</Text>

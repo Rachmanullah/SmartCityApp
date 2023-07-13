@@ -7,7 +7,7 @@ const Register = ({navigation}) => {
             <StatusBar barStyle="dark-content" backgroundColor="grey"/>
             <Text style={styles.Text}>Sistem Pelayanan Pelaporan Jalan Rusak</Text>
             <View style={{ marginTop: 15, alignItems: 'center'}}>
-            <Text style={styles.label}>Nama Lengkap</Text>
+                <Text style={styles.label}>Nama Lengkap</Text>
                 <View style={styles.inputan}>
                     <TextInput
                     style={{ fontSize: 18, paddingHorizontal: 10 }}

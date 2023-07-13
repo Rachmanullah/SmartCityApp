@@ -12,6 +12,9 @@ import {
 import { ImageHome } from '../../assets';
 
 export default class Home extends Component {
+  constructor(props) {
+        super(props);
+  }
   render() {
     return (
       <ScrollView>
@@ -43,7 +46,7 @@ export default class Home extends Component {
             </Text>
           </View>
           <View style={{ alignItems: 'center' }}>
-            <TouchableOpacity style={styles.btn}>
+            <TouchableOpacity style={styles.btn} onPress={() => this.props.navigation.navigate('Maps')} >
               <Text
                 style={{
                   fontFamily: 'TitiliumWeb-Bold',

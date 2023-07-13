@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { Text, StyleSheet, View, Image } from 'react-native';
+import { Text, StyleSheet, View, Image, ScrollView } from 'react-native';
 import { ImageHome } from '../../assets';
 
 export default class Laporan extends Component {
   render() {
     return (
-      <View style={{ paddingHorizontal: 20, paddingTop: 20 }}>
+      <ScrollView style={{ paddingHorizontal: 20, paddingTop: 20 }}>
         <Text style={{ fontFamily: 'Poppins-Bold', fontSize: 24 }}>
           Daftar Laporan Anda
         </Text>
@@ -63,7 +63,7 @@ export default class Laporan extends Component {
             </View>
           </View>
         </View>
-      </View>
+      </ScrollView>
     );
   }
 }

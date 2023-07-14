@@ -6,6 +6,7 @@ import Laporan from './Laporan';
 import Akun from './Akun';
 import Personal from './Akun/Personal';
 import LaporanNew from './Laporan/LaporanNew';
+import MapsCoor from './Laporan/MapsCoor';
 export{
     Splash,
     Home, 
@@ -14,5 +15,6 @@ export{
     Laporan,
     Akun,
     Personal,
-    LaporanNew
+    LaporanNew,
+    MapsCoor
 };

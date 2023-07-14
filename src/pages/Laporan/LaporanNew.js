@@ -1,12 +1,26 @@
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View, Image, TextInput } from 'react-native'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { IconCamera, IconCompas } from '../../assets'
+import { useRoute } from '@react-navigation/native'
 
-const LaporanNew = ({navigation}) => {
+
+const LaporanNew = ({ navigation }) => {
+    const route = useRoute()
+    const [Latitude, setLatitude] = useState('')
+    const [Longitude, setLongitude] = useState('')
+
+    // console.log(route)
+    useEffect(() => {
+        if (route.params) {
+            console.log(route.params.dataCoor)
+            setLatitude(JSON.stringify(route.params.dataCoor.latitude))
+            setLongitude(JSON.stringify(route.params.dataCoor.longitude))
+        }
+    })
     return (
         <ScrollView>
             <View style={{ marginHorizontal: 20 }}>
-                <Text style={{ fontFamily: 'Poppins-Regular', fontSize: 18, marginTop: 10,color: 'black' }}>
+                <Text style={{ fontFamily: 'Poppins-Regular', fontSize: 18, marginTop: 10, color: 'black' }}>
                     Foto Jalan
                 </Text>
                 <TouchableOpacity style={{
@@ -20,36 +34,37 @@ const LaporanNew = ({navigation}) => {
                 }}>
                     <Image source={IconCamera} style={{ height: 50, width: 50 }} />
                 </TouchableOpacity>
-                <Text style={{ fontFamily: 'Poppins-Regular', fontSize: 18, marginTop: 10,color: 'black' }}>
+                <Text style={{ fontFamily: 'Poppins-Regular', fontSize: 18, marginTop: 10, color: 'black' }}>
                     Koordinat
                 </Text>
                 <View style={{ flexDirection: 'row', flex: 1 }}>
                     <View style={styles.inputan}>
                         <TextInput
                             style={{ fontSize: 18, color: 'black', paddingHorizontal: 10 }}
+                            value={Latitude}
                             placeholder='Latitude'
-                            onChange={(email) => setEmail(email)}
                         />
                     </View>
                     <View style={styles.inputan}>
                         <TextInput
                             style={{ fontSize: 18, color: 'black', paddingHorizontal: 10 }}
+                            value={Longitude}
                             placeholder='Longitude'
-                            onChange={(email) => setEmail(email)}
                         />
                     </View>
-                    <TouchableOpacity style={{ 
-                        backgroundColor: '#6A7FEE', 
-                        alignItems: 'center', 
-                        marginTop: 10, 
-                        padding: 10, 
-                        borderRadius: 10, }}
-                        onPress={() => navigation.navigate('Maps')}
-                        >
+                    <TouchableOpacity style={{
+                        backgroundColor: '#6A7FEE',
+                        alignItems: 'center',
+                        marginTop: 10,
+                        padding: 10,
+                        borderRadius: 10,
+                    }}
+                        onPress={() => navigation.navigate('MapsCoor')}
+                    >
                         <Image source={IconCompas} style={{ height: 30, width: 30 }} />
                     </TouchableOpacity>
                 </View>
-                <Text style={{ fontFamily: 'Poppins-Regular', fontSize: 18, marginTop: 10,color: 'black' }}>
+                <Text style={{ fontFamily: 'Poppins-Regular', fontSize: 18, marginTop: 10, color: 'black' }}>
                     Alamat Lokasi
                 </Text>
                 <View style={{
@@ -71,7 +86,7 @@ const LaporanNew = ({navigation}) => {
                         onChange={(email) => setEmail(email)}
                     />
                 </View>
-                <Text style={{ fontFamily: 'Poppins-Regular', fontSize: 18, marginTop: 10,color: 'black' }}>
+                <Text style={{ fontFamily: 'Poppins-Regular', fontSize: 18, marginTop: 10, color: 'black' }}>
                     Keterangan
                 </Text>
                 <View style={{
@@ -93,7 +108,7 @@ const LaporanNew = ({navigation}) => {
                         onChange={(email) => setEmail(email)}
                     />
                 </View>
-                <Text style={{ fontFamily: 'Poppins-Regular', fontSize: 18, marginTop: 10,color: 'black', }}>
+                <Text style={{ fontFamily: 'Poppins-Regular', fontSize: 18, marginTop: 10, color: 'black', }}>
                     Status
                 </Text>
                 <View style={{

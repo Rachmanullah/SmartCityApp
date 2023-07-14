@@ -114,8 +114,8 @@ export default Maps
 const styles = StyleSheet.create({
     container: {
         ...StyleSheet.absoluteFillObject,
-        height: 400,
-        width: 400,
+        height: '100%',
+        width: '100%',
         justifyContent: 'flex-end',
         alignItems: 'center',
     },

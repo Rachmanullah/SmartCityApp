@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image,TouchableOpacity,TextInput,ScrollView } from 'react-native'
+import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput, ScrollView } from 'react-native'
 import React from 'react'
 import { ImageHome } from '../../assets'
 
@@ -12,28 +12,28 @@ const Personal = () => {
                 <Text style={styles.label}>Nama Lengkap</Text>
                 <View style={styles.inputan}>
                     <TextInput
-                        style={{ fontSize: 18, paddingHorizontal: 10 }}
+                        style={{ fontSize: 18, paddingHorizontal: 10, color: 'black' }}
                         placeholder='Masukkan Nama Lengkap'
                     />
                 </View>
                 <Text style={styles.label}>Email</Text>
                 <View style={styles.inputan}>
                     <TextInput
-                        style={{ fontSize: 18, paddingHorizontal: 10 }}
+                        style={{ fontSize: 18, paddingHorizontal: 10, color: 'black' }}
                         placeholder='Masukkan Email'
                     />
                 </View>
                 <Text style={styles.label}>Password</Text>
                 <View style={styles.inputan}>
                     <TextInput
-                        style={{ fontSize: 18, paddingHorizontal: 10 }}
+                        style={{ fontSize: 18, paddingHorizontal: 10, color: 'black' }}
                         placeholder='Password'
                     />
                 </View>
                 <Text style={styles.label}>Confirm Password</Text>
                 <View style={styles.inputan}>
                     <TextInput
-                        style={{ fontSize: 18, paddingHorizontal: 10 }}
+                        style={{ fontSize: 18, paddingHorizontal: 10, color: 'black' }}
                         placeholder='Confirm password'
                     />
                 </View>
@@ -57,15 +57,16 @@ const styles = StyleSheet.create({
     label: {
         alignSelf: 'flex-start',
         fontSize: 20,
-        fontFamily: 'TitilliumWeb-Bold'
+        fontFamily: 'TitilliumWeb-Bold',
+        color: 'black'
     },
     inputan: {
-        width: 350,
+        width: '100%',
         height: 53,
-        backgroundColor: 'white',
+        backgroundColor: '#c7c7c5',
         marginTop: 10,
         margin: 15,
-        borderColor: '#7a42f4',
+        borderColor: 'black',
         borderWidth: 2,
         shadowColor: 'black',
         shadowOpacity: 100,
@@ -77,7 +78,7 @@ const styles = StyleSheet.create({
         marginVertical: 20,
         alignItems: 'center',
         paddingVertical: 15,
-        width: 350,
+        width: '100%',
         height: 53,
         borderRadius: 100,
         shadowColor: 'black',

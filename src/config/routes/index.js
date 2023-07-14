@@ -6,7 +6,7 @@ import {
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Akun, Home, Laporan, Login, Personal, Register, Splash } from '../../pages';
+import { Akun, Home, Laporan, LaporanNew, Login, Personal, Register, Splash } from '../../pages';
 import { IconAkun, IconAkunActive, IconHome, IconHomeActive, IconLaporan, IconLaporanActive } from '../../assets';
 import Maps from '../../pages/Maps';
 
@@ -15,10 +15,10 @@ const Stack = createNativeStackNavigator();
 
 const MainApp = () => {
     return (
-        <MaterialBottom.Navigator 
+        <MaterialBottom.Navigator
             shifting={false}
             initialRouteName="Home"
-            barStyle={{ backgroundColor: '#6A7FEE'}}
+            barStyle={{ backgroundColor: '#6A7FEE' }}
             activeColor='#FEFEFE'
             inactiveColor='#040404'
         >
@@ -67,13 +67,14 @@ const MainApp = () => {
 
 const MyStack = () => {
     return (
-        <Stack.Navigator initialRouteName='MainApp'>
-            <Stack.Screen name='Splash' component={Splash} options={{ headerShown:false }}/>
-            <Stack.Screen name='Login' component={Login} options={{ headerShown:false }}/>
-            <Stack.Screen name='Register' component={Register} options={{ headerShown: false }}/>
-            <Stack.Screen name='MainApp' component={MainApp} options={{ headerShown: false }}/>
+        <Stack.Navigator initialRouteName='LaporanNew'>
+            <Stack.Screen name='Splash' component={Splash} options={{ headerShown: false }} />
+            <Stack.Screen name='Login' component={Login} options={{ headerShown: false }} />
+            <Stack.Screen name='Register' component={Register} options={{ headerShown: false }} />
+            <Stack.Screen name='MainApp' component={MainApp} options={{ headerShown: false }} />
             <Stack.Screen name="Personal Data" component={Personal} options={{ headerShown: true }} />
             <Stack.Screen name="Maps" component={Maps} options={{ headerShown: false }} />
+            <Stack.Screen name='LaporanNew' component={LaporanNew} options={{ headerShown: true, title: 'Buat Laporan' }} />
         </Stack.Navigator>
     )
 }
@@ -82,7 +83,7 @@ export default class index extends Component {
     render() {
         return (
             <NavigationContainer>
-                <MyStack/>
+                <MyStack />
             </NavigationContainer>
         );
     }

@@ -5,6 +5,7 @@ import Register from './Auth/Register';
 import Laporan from './Laporan';
 import Akun from './Akun';
 import Personal from './Akun/Personal';
+import LaporanNew from './Laporan/LaporanNew';
 export{
     Splash,
     Home, 
@@ -12,5 +13,6 @@ export{
     Register,
     Laporan,
     Akun,
-    Personal
+    Personal,
+    LaporanNew
 };

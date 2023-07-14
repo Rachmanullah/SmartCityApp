@@ -6,19 +6,19 @@ export default class Laporan extends Component {
   render() {
     return (
       <ScrollView style={{ paddingHorizontal: 20, paddingTop: 20 }}>
-        <Text style={{ fontFamily: 'Poppins-Bold', fontSize: 24 }}>
+        <Text style={{ fontFamily: 'Poppins-Bold', fontSize: 24, color: 'black' }}>
           Daftar Laporan Anda
         </Text>
-        <View style={{ flexDirection: 'row', marginTop: 10,}}>
+        <View style={{ flexDirection: 'row', marginTop: 10, }}>
           <View style={{ marginRight: 15, marginVertical: 10 }}>
             <Image source={ImageHome} style={styles.ImageContent} />
           </View>
           <View style={{ marginVertical: 10 }}>
-            <Text style={{ fontSize: 18, fontFamily: 'Poppins-SemiBold' }}>
+            <Text style={{ fontSize: 18, fontFamily: 'Poppins-SemiBold', color: 'black' }}>
               Jl.Gatot Subroto
             </Text>
             <View style={{ marginTop: 40, flexDirection: 'row' }}>
-              <Text style={{ fontSize: 16, fontFamily: 'Poppins-Regular' }}>
+              <Text style={{ fontSize: 16, fontFamily: 'Poppins-Regular', color: 'black' }}>
                 Status :
               </Text>
               <Text style={{ fontSize: 16, fontFamily: 'Poppins-Regular', padding: 6, marginHorizontal: 5, marginTop: -6, color: '#FEFEFE', backgroundColor: '#3ceb4f', borderRadius: 20 }}>
@@ -32,11 +32,11 @@ export default class Laporan extends Component {
             <Image source={ImageHome} style={styles.ImageContent} />
           </View>
           <View style={{ marginVertical: 10 }}>
-            <Text style={{ fontSize: 18, fontFamily: 'Poppins-SemiBold' }}>
+            <Text style={{ fontSize: 18, fontFamily: 'Poppins-SemiBold', color: 'black' }}>
               Jl.Gatot Subroto
             </Text>
             <View style={{ marginTop: 40, flexDirection: 'row' }}>
-              <Text style={{ fontSize: 16, fontFamily: 'Poppins-Regular' }}>
+              <Text style={{ fontSize: 16, fontFamily: 'Poppins-Regular', color: 'black' }}>
                 Status :
               </Text>
               <Text style={{ fontSize: 16, fontFamily: 'Poppins-Regular', padding: 6, marginHorizontal: 5, marginTop: -6, color: '#FEFEFE', backgroundColor: '#f72f2f', borderRadius: 20 }}>
@@ -50,11 +50,11 @@ export default class Laporan extends Component {
             <Image source={ImageHome} style={styles.ImageContent} />
           </View>
           <View style={{ marginVertical: 10 }}>
-            <Text style={{ fontSize: 18, fontFamily: 'Poppins-SemiBold' }}>
+            <Text style={{ fontSize: 18, fontFamily: 'Poppins-SemiBold', color: 'black' }}>
               Jl.Gatot Subroto
             </Text>
             <View style={{ marginTop: 40, flexDirection: 'row' }}>
-              <Text style={{ fontSize: 16, fontFamily: 'Poppins-Regular' }}>
+              <Text style={{ fontSize: 16, fontFamily: 'Poppins-Regular', color: 'black' }}>
                 Status :
               </Text>
               <Text style={{ fontSize: 16, fontFamily: 'Poppins-Regular', padding: 6, marginHorizontal: 5, marginTop: -6, color: '#FEFEFE', backgroundColor: '#435ef5', borderRadius: 20 }}>

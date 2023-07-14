@@ -13,12 +13,12 @@ import { ImageHome } from '../../assets';
 
 export default class Home extends Component {
   constructor(props) {
-        super(props);
+    super(props);
   }
   render() {
     return (
       <ScrollView>
-        <StatusBar barStyle="dark-content" backgroundColor="black" />
+        <StatusBar barStyle="light-content" backgroundColor="black" />
         <Image source={ImageHome} style={styles.ImageHome} />
         <View>
           <View style={{ marginTop: 10, marginHorizontal: 20 }}>
@@ -26,6 +26,7 @@ export default class Home extends Component {
               style={{
                 fontFamily: 'Poppins-Bold',
                 fontSize: 24,
+                color: 'black',
                 textAlign: 'center',
               }}>
               Sistem Pelayanan Pelaporan Jalan Rusak
@@ -37,6 +38,7 @@ export default class Home extends Component {
                 fontFamily: 'TitilliumWeb-Regular',
                 fontSize: 15,
                 textAlign: 'center',
+                color: 'black'
               }}>
               Aplikasi pelaporan berbasis masyarakat yang dapat digunakan untuk
               melaporkan jalan rusak. Pengguna dapat mengambil foto jalan rusak,
@@ -46,7 +48,7 @@ export default class Home extends Component {
             </Text>
           </View>
           <View style={{ alignItems: 'center' }}>
-            <TouchableOpacity style={styles.btn} onPress={() => this.props.navigation.navigate('Maps')} >
+            <TouchableOpacity style={styles.btn} onPress={() => this.props.navigation.navigate('LaporanNew')} >
               <Text
                 style={{
                   fontFamily: 'TitiliumWeb-Bold',
@@ -58,7 +60,7 @@ export default class Home extends Component {
             </TouchableOpacity>
           </View>
           <View style={{ paddingHorizontal: 20 }}>
-            <Text style={{ fontSize: 20, fontFamily: 'Poppins-ExtraBold' }}>
+            <Text style={{ fontSize: 20, fontFamily: 'Poppins-ExtraBold', color: 'black' }}>
               Daftar Jalan Rusak
             </Text>
             <View style={{ flexDirection: 'row' }}>
@@ -66,8 +68,8 @@ export default class Home extends Component {
                 <Image source={ImageHome} style={styles.ImageContent} />
               </View>
               <View style={{ marginVertical: 10 }}>
-                <Text style={{ fontSize: 18, fontFamily: 'Poppins-SemiBold' }}>Jl.Gatot Subroto</Text>
-                <Text style={{ fontSize: 16, fontFamily: 'Poppins-Regular' }}>Kerusakan : Sedang</Text>
+                <Text style={{ fontSize: 18, fontFamily: 'Poppins-SemiBold', color: 'black' }}>Jl.Gatot Subroto</Text>
+                <Text style={{ fontSize: 16, fontFamily: 'Poppins-Regular', color: 'black' }}>Kerusakan : Sedang</Text>
               </View>
             </View>
             <View style={{ flexDirection: 'row' }}>
@@ -75,8 +77,8 @@ export default class Home extends Component {
                 <Image source={ImageHome} style={styles.ImageContent} />
               </View>
               <View style={{ marginVertical: 10 }}>
-                <Text style={{ fontSize: 18, fontFamily: 'Poppins-SemiBold' }}>Jl.Gatot Subroto</Text>
-                <Text style={{ fontSize: 16, fontFamily: 'Poppins-Regular' }}>Kerusakan : Sedang</Text>
+                <Text style={{ fontSize: 18, fontFamily: 'Poppins-SemiBold', color: 'black' }}>Jl.Gatot Subroto</Text>
+                <Text style={{ fontSize: 16, fontFamily: 'Poppins-Regular', color: 'black' }}>Kerusakan : Sedang</Text>
               </View>
             </View>
             <View style={{ flexDirection: 'row' }}>
@@ -84,8 +86,8 @@ export default class Home extends Component {
                 <Image source={ImageHome} style={styles.ImageContent} />
               </View>
               <View style={{ marginVertical: 10 }}>
-                <Text style={{ fontSize: 18, fontFamily: 'Poppins-SemiBold' }}>Jl.Gatot Subroto</Text>
-                <Text style={{ fontSize: 16, fontFamily: 'Poppins-Regular' }}>Kerusakan : Sedang</Text>
+                <Text style={{ fontSize: 18, fontFamily: 'Poppins-SemiBold', color: 'black' }}>Jl.Gatot Subroto</Text>
+                <Text style={{ fontSize: 16, fontFamily: 'Poppins-Regular', color: 'black' }}>Kerusakan : Sedang</Text>
               </View>
             </View>
           </View>
@@ -101,7 +103,7 @@ const windowHeight = Dimensions.get('window').height;
 const styles = StyleSheet.create({
   ImageHome: {
     borderRadius: 20,
-    marginVertical: 10,
+    marginTop: '5%',
     marginHorizontal: 10,
     width: windowWidth - 20,
   },

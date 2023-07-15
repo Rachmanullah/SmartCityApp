@@ -67,7 +67,7 @@ const MainApp = () => {
 
 const MyStack = () => {
     return (
-        <Stack.Navigator initialRouteName='MainApp'>
+        <Stack.Navigator initialRouteName='Splash'>
             <Stack.Screen name='Splash' component={Splash} options={{ headerShown: false }} />
             <Stack.Screen name='Login' component={Login} options={{ headerShown: false }} />
             <Stack.Screen name='Register' component={Register} options={{ headerShown: false }} />

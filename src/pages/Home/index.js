@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
 import {
   Image,
   ScrollView,
@@ -8,12 +8,26 @@ import {
   View,
   Dimensions,
   TouchableOpacity,
+  BackHandler
 } from 'react-native';
 import { ImageHome } from '../../assets';
 
 export default class Home extends Component {
+
   constructor(props) {
     super(props);
+  }
+  componentDidMount() {
+    const backAction = () => {
+      BackHandler.exitApp()
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction,
+    );
+    return () => backHandler.remove();
   }
   render() {
     return (
@@ -103,7 +117,7 @@ const windowHeight = Dimensions.get('window').height;
 const styles = StyleSheet.create({
   ImageHome: {
     borderRadius: 20,
-    marginTop: '5%',
+    marginTop: '10%',
     marginHorizontal: 10,
     width: windowWidth - 20,
   },

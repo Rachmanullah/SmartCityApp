@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
-import { Text, StyleSheet, View, Image, ScrollView } from 'react-native';
+import { Text, StyleSheet, View, Image, ScrollView, TouchableOpacity } from 'react-native';
 import { ImageHome } from '../../assets';
 
 export default class Laporan extends Component {
+  constructor(props) {
+    super(props);
+  }
   render() {
     return (
       <ScrollView style={{ paddingHorizontal: 20, paddingTop: 20 }}>
@@ -63,6 +66,18 @@ export default class Laporan extends Component {
             </View>
           </View>
         </View>
+        <View style={{ alignItems: 'center' }}>
+          <TouchableOpacity style={styles.btn} onPress={() => this.props.navigation.navigate('LaporanNew')} >
+            <Text
+              style={{
+                fontFamily: 'TitiliumWeb-Bold',
+                fontSize: 18,
+                color: 'white',
+              }}>
+              Ajukan Laporan
+            </Text>
+          </TouchableOpacity>
+        </View>
       </ScrollView>
     );
   }
@@ -73,5 +88,19 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     width: 150,
     height: 100,
+  },
+  btn: {
+    backgroundColor: '#6A7FEE',
+    marginVertical: 20,
+    alignItems: 'center',
+    paddingVertical: 15,
+    width: 350,
+    height: 53,
+    borderRadius: 100,
+    shadowColor: 'black',
+    shadowOpacity: 100,
+    shadowRadius: 10,
+    elevation: 5,
+    overflow: 'hidden',
   },
 });

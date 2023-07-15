@@ -1,41 +1,53 @@
-import { StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
-import React, { useState } from 'react'
+import { BackHandler, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import React, { useState, useEffect } from 'react'
 
-const Login = ({navigation}) => {
-    const [email,setEmail] = useState("")
-    const [password,setPassword] = useState("")
+const Login = ({ navigation }) => {
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
     const prosesLogin = () => {
         if (email == "" && password == "" || email == "" || password == "") {
             console.warn("Isi Email dan Password !!!")
-        }else{
+        } else {
             navigation.navigate('MainApp')
         }
     }
+    useEffect(() => {
+        const backAction = () => {
+            BackHandler.exitApp()
+            return true;
+        };
+
+        const backHandler = BackHandler.addEventListener(
+            'hardwareBackPress',
+            backAction,
+        );
+        return () => backHandler.remove();
+    }, [])
     return (
         <View>
-            <StatusBar barStyle="dark-content" backgroundColor="grey"/>
+            <StatusBar barStyle="dark-content" backgroundColor="grey" />
             <Text style={styles.Text}>Sistem Pelayanan Pelaporan Jalan Rusak</Text>
-            <View style={{ marginTop: 150, alignItems: 'center', marginHorizontal: 10,}}>
+            <View style={{ marginTop: 150, alignItems: 'center', marginHorizontal: 10, }}>
                 <Text style={styles.label}>Email</Text>
                 <View style={styles.inputan}>
                     <TextInput
-                    style={{ fontSize: 18,color:'black', paddingHorizontal: 10}}
-                    placeholder='Masukkan Email'
-                    onChange={(email) => setEmail(email)}
-                />
+                        style={{ fontSize: 18, color: 'black', paddingHorizontal: 10 }}
+                        placeholder='Masukkan Email'
+                        onChange={(email) => setEmail(email)}
+                    />
                 </View>
                 <Text style={styles.label}>Password</Text>
                 <View style={styles.inputan}>
                     <TextInput
-                    style={{ fontSize: 18,color:'black', paddingHorizontal: 10  }}
-                    placeholder='Password'
-                     onChange={(password) => setPassword(password)}
-                />
+                        style={{ fontSize: 18, color: 'black', paddingHorizontal: 10 }}
+                        placeholder='Password'
+                        onChange={(password) => setPassword(password)}
+                    />
                 </View>
                 <TouchableOpacity style={styles.btn} onPress={() => prosesLogin()}>
-                    <Text style={{ 
-                        fontFamily:'TitiliumWeb-Bold',
-                        fontSize: 18, 
+                    <Text style={{
+                        fontFamily: 'TitiliumWeb-Bold',
+                        fontSize: 18,
                         color: 'white'
                     }}>
                         Masuk
@@ -44,7 +56,7 @@ const Login = ({navigation}) => {
                 <View style={{ flexDirection: 'row' }}>
                     <Text style={{ fontFamily: 'TitilliumWeb-Regular', paddingHorizontal: 5, fontSize: 15, color: 'black' }}>Belum Punya Akun?</Text>
                     <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-                        <Text style={{ fontFamily: 'TitilliumWeb-Bold', color: '#6A7FEE', paddingHorizontal: 5, fontSize: 15}}>Daftar</Text>
+                        <Text style={{ fontFamily: 'TitilliumWeb-Bold', color: '#6A7FEE', paddingHorizontal: 5, fontSize: 15 }}>Daftar</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -62,7 +74,7 @@ const styles = StyleSheet.create({
         marginTop: 40,
         marginHorizontal: 10,
     },
-    label:{
+    label: {
         alignSelf: 'flex-start',
         fontSize: 20,
         fontFamily: 'TitilliumWeb-Bold',
@@ -81,7 +93,7 @@ const styles = StyleSheet.create({
         shadowRadius: 10,
         elevation: 10,
     },
-    btn:{
+    btn: {
         backgroundColor: '#6A7FEE',
         marginVertical: 20,
         alignItems: 'center',

@@ -4,8 +4,10 @@ import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
 
 export class MapsCoor extends Component {
+
     constructor(props) {
         super(props);
+
         this.state = {
             userLocation: {
                 "coords": {
@@ -52,6 +54,7 @@ export class MapsCoor extends Component {
         }
     };
     render() {
+
         return (
             <View >
                 <View style={styles.container}>
@@ -59,20 +62,20 @@ export class MapsCoor extends Component {
                         provider={PROVIDER_GOOGLE} // remove if not using Google Maps
                         style={styles.map}
                         region={{
-                            latitude: this.state.userLocation.coords.latitude,
-                            longitude: this.state.userLocation.coords.longitude,
+                            latitude: this.props.route.params && this.props.route.params.marker ? this.props.route.params.marker.coordinate.latitude : this.state.userLocation.coords.latitude,
+                            longitude: this.props.route.params && this.props.route.params.marker ? this.props.route.params.marker.coordinate.longitude : this.state.userLocation.coords.longitude,
                             latitudeDelta: 0.005,
                             longitudeDelta: 0.0021,
                         }}
                     >
                         <Marker
-                            pinColor={'#6A7FEE'}
+                            pinColor={this.props.route.params && this.props.route.params.marker ? this.props.route.params.marker.color : '#6A7FEE'}
                             key={'user'}
                             coordinate={{
-                                latitude: this.state.userLocation.coords.latitude,
-                                longitude: this.state.userLocation.coords.longitude
+                                latitude: this.props.route.params && this.props.route.params.marker ? this.props.route.params.marker.coordinate.latitude : this.state.userLocation.coords.latitude,
+                                longitude: this.props.route.params && this.props.route.params.marker ? this.props.route.params.marker.coordinate.longitude : this.state.userLocation.coords.longitude
                             }}
-                            title={'Lokasi Saya'}
+                            title={this.props.route.params && this.props.route.params.marker ? this.props.route.params.marker.title : 'Lokasi Saya'}
                         />
                     </MapView>
                 </View>
@@ -80,25 +83,29 @@ export class MapsCoor extends Component {
                     <View style={{ flexDirection: 'row', marginBottom: 20, }}>
                         <Text style={{ fontFamily: 'TitilliumWeb-Bold', fontSize: 16, color: 'black', paddingEnd: '23%' }}>Latitude </Text>
                         <Text style={{ fontFamily: 'TitilliumWeb-Bold', fontSize: 16, color: 'black', paddingEnd: 20 }}>:</Text>
-                        <Text style={{ fontFamily: 'TitilliumWeb-Bold', fontSize: 16, color: 'black' }}>{this.state.userLocation.coords.latitude}</Text>
+                        <Text style={{ fontFamily: 'TitilliumWeb-Bold', fontSize: 16, color: 'black' }}>{this.props.route.params && this.props.route.params.marker ? this.props.route.params.marker.coordinate.latitude : this.state.userLocation.coords.latitude}</Text>
                     </View>
                     <View style={{ flexDirection: 'row', marginBottom: 20 }}>
                         <Text style={{ fontFamily: 'TitilliumWeb-Bold', fontSize: 16, color: 'black', paddingEnd: '20%' }}>Longitude</Text>
                         <Text style={{ fontFamily: 'TitilliumWeb-Bold', fontSize: 16, color: 'black', paddingEnd: 20 }}>:</Text>
-                        <Text style={{ fontFamily: 'TitilliumWeb-Bold', fontSize: 16, color: 'black' }}>{this.state.userLocation.coords.longitude}</Text>
+                        <Text style={{ fontFamily: 'TitilliumWeb-Bold', fontSize: 16, color: 'black' }}>{this.props.route.params && this.props.route.params.marker ? this.props.route.params.marker.coordinate.longitude : this.state.userLocation.coords.longitude}</Text>
                     </View>
-                    <TouchableOpacity style={styles.btn} 
-                    onPress={() => this.props.navigation.navigate('LaporanNew', { 
-                        dataCoor: this.state.userLocation.coords
-                        })}>
-                        <Text style={{
-                            fontFamily: 'TitiliumWeb-Bold',
-                            fontSize: 18,
-                            color: 'white'
-                        }}>
-                            Simpan Koordinat
-                        </Text>
-                    </TouchableOpacity>
+                    {
+                        !this.props.route.params &&
+                        <TouchableOpacity style={styles.btn}
+                            onPress={() => this.props.navigation.navigate('LaporanNew', {
+                                dataCoor: this.state.userLocation.coords
+                            })}>
+                            <Text style={{
+                                fontFamily: 'TitiliumWeb-Bold',
+                                fontSize: 18,
+                                color: 'white'
+                            }}>
+                                Simpan Koordinat
+                            </Text>
+                        </TouchableOpacity>
+                    }
+
                 </ScrollView>
             </View>
         )

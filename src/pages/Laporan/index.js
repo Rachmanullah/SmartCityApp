@@ -5,6 +5,40 @@ import { ImageHome } from '../../assets';
 export default class Laporan extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      daftarMarker: [
+        {
+          id: 1,
+          title: 'Jl.Gatot Subroto',
+          status: 'Ringan',
+          coordinate: {
+            latitude: -7.986463982343888,
+            longitude: 112.6364327499232
+          },
+          color: 'cyan'
+        },
+        {
+          id: 2,
+          title: 'Jl.KedungKandang',
+          status: 'Sedang',
+          coordinate: {
+            latitude: -7.984824078480216,
+            longitude: 112.65654085809507
+          },
+          color: 'yellow'
+        },
+        {
+          id: 3,
+          title: 'Jl.Sawojajar',
+          status: 'Parah',
+          coordinate: {
+            latitude: -7.976718171631598,
+            longitude: 112.64561150989431
+          },
+          color: 'Red'
+        }
+      ]
+    }
   }
   render() {
     return (
@@ -12,60 +46,22 @@ export default class Laporan extends Component {
         <Text style={{ fontFamily: 'Poppins-Bold', fontSize: 24, color: 'black' }}>
           Daftar Laporan Anda
         </Text>
-        <View style={{ flexDirection: 'row', marginTop: 10, }}>
-          <View style={{ marginRight: 15, marginVertical: 10 }}>
-            <Image source={ImageHome} style={styles.ImageContent} />
-          </View>
-          <View style={{ marginVertical: 10 }}>
-            <Text style={{ fontSize: 18, fontFamily: 'Poppins-SemiBold', color: 'black' }}>
-              Jl.Gatot Subroto
-            </Text>
-            <View style={{ marginTop: 40, flexDirection: 'row' }}>
-              <Text style={{ fontSize: 16, fontFamily: 'Poppins-Regular', color: 'black' }}>
-                Status :
-              </Text>
-              <Text style={{ fontSize: 16, fontFamily: 'Poppins-Regular', padding: 6, marginHorizontal: 5, marginTop: -6, color: '#FEFEFE', backgroundColor: '#3ceb4f', borderRadius: 20 }}>
-                Diajukan
-              </Text>
-            </View>
-          </View>
-        </View>
-        <View style={{ flexDirection: 'row' }}>
-          <View style={{ marginRight: 15, marginVertical: 10 }}>
-            <Image source={ImageHome} style={styles.ImageContent} />
-          </View>
-          <View style={{ marginVertical: 10 }}>
-            <Text style={{ fontSize: 18, fontFamily: 'Poppins-SemiBold', color: 'black' }}>
-              Jl.Gatot Subroto
-            </Text>
-            <View style={{ marginTop: 40, flexDirection: 'row' }}>
-              <Text style={{ fontSize: 16, fontFamily: 'Poppins-Regular', color: 'black' }}>
-                Status :
-              </Text>
-              <Text style={{ fontSize: 16, fontFamily: 'Poppins-Regular', padding: 6, marginHorizontal: 5, marginTop: -6, color: '#FEFEFE', backgroundColor: '#f72f2f', borderRadius: 20 }}>
-                DiTolak
-              </Text>
-            </View>
-          </View>
-        </View>
-        <View style={{ flexDirection: 'row' }}>
-          <View style={{ marginRight: 15, marginVertical: 10 }}>
-            <Image source={ImageHome} style={styles.ImageContent} />
-          </View>
-          <View style={{ marginVertical: 10 }}>
-            <Text style={{ fontSize: 18, fontFamily: 'Poppins-SemiBold', color: 'black' }}>
-              Jl.Gatot Subroto
-            </Text>
-            <View style={{ marginTop: 40, flexDirection: 'row' }}>
-              <Text style={{ fontSize: 16, fontFamily: 'Poppins-Regular', color: 'black' }}>
-                Status :
-              </Text>
-              <Text style={{ fontSize: 16, fontFamily: 'Poppins-Regular', padding: 6, marginHorizontal: 5, marginTop: -6, color: '#FEFEFE', backgroundColor: '#435ef5', borderRadius: 20 }}>
-                DiTerima
-              </Text>
-            </View>
-          </View>
-        </View>
+        {
+          this.state.daftarMarker.map((item, index) => (
+            <TouchableOpacity style={{ flexDirection: 'row' }}
+              key={index}
+              onPress={() => this.props.navigation.navigate('MapsCoor',
+                { marker: item })}>
+              <View style={{ marginRight: 15, marginVertical: 10 }}>
+                <Image source={ImageHome} style={styles.ImageContent} />
+              </View>
+              <View style={{ marginVertical: 10 }}>
+                <Text style={{ fontSize: 18, fontFamily: 'Poppins-SemiBold', color: 'black' }}>{item.title}</Text>
+                <Text style={{ fontSize: 16, fontFamily: 'Poppins-Regular', color: 'black' }}>Kerusakan : {item.status}</Text>
+              </View>
+            </TouchableOpacity>
+          ))
+        }
         <View style={{ alignItems: 'center' }}>
           <TouchableOpacity style={styles.btn} onPress={() => this.props.navigation.navigate('LaporanNew')} >
             <Text

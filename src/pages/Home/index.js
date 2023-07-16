@@ -16,7 +16,42 @@ export default class Home extends Component {
 
   constructor(props) {
     super(props);
+    this.state = {
+      daftarMarker: [
+        {
+          id: 1,
+          title: 'Jl.Gatot Subroto',
+          status: 'Ringan',
+          coordinate: {
+            latitude: -7.986463982343888,
+            longitude: 112.6364327499232
+          },
+          color: 'cyan'
+        },
+        {
+          id: 2,
+          title: 'Jl.KedungKandang',
+          status: 'Sedang',
+          coordinate: {
+            latitude: -7.984824078480216,
+            longitude: 112.65654085809507
+          },
+          color: 'yellow'
+        },
+        {
+          id: 3,
+          title: 'Jl.Sawojajar',
+          status: 'Parah',
+          coordinate: {
+            latitude: -7.976718171631598,
+            longitude: 112.64561150989431
+          },
+          color: 'Red'
+        }
+      ]
+    }
   }
+
   componentDidMount() {
     const backAction = () => {
       BackHandler.exitApp()
@@ -29,6 +64,7 @@ export default class Home extends Component {
     );
     return () => backHandler.remove();
   }
+
   render() {
     return (
       <ScrollView>
@@ -77,33 +113,22 @@ export default class Home extends Component {
             <Text style={{ fontSize: 20, fontFamily: 'Poppins-ExtraBold', color: 'black' }}>
               Daftar Jalan Rusak
             </Text>
-            <View style={{ flexDirection: 'row' }}>
-              <View style={{ marginRight: 15, marginVertical: 10 }}>
-                <Image source={ImageHome} style={styles.ImageContent} />
-              </View>
-              <View style={{ marginVertical: 10 }}>
-                <Text style={{ fontSize: 18, fontFamily: 'Poppins-SemiBold', color: 'black' }}>Jl.Gatot Subroto</Text>
-                <Text style={{ fontSize: 16, fontFamily: 'Poppins-Regular', color: 'black' }}>Kerusakan : Sedang</Text>
-              </View>
-            </View>
-            <View style={{ flexDirection: 'row' }}>
-              <View style={{ marginRight: 15, marginVertical: 10 }}>
-                <Image source={ImageHome} style={styles.ImageContent} />
-              </View>
-              <View style={{ marginVertical: 10 }}>
-                <Text style={{ fontSize: 18, fontFamily: 'Poppins-SemiBold', color: 'black' }}>Jl.Gatot Subroto</Text>
-                <Text style={{ fontSize: 16, fontFamily: 'Poppins-Regular', color: 'black' }}>Kerusakan : Sedang</Text>
-              </View>
-            </View>
-            <View style={{ flexDirection: 'row' }}>
-              <View style={{ marginRight: 15, marginVertical: 10 }}>
-                <Image source={ImageHome} style={styles.ImageContent} />
-              </View>
-              <View style={{ marginVertical: 10 }}>
-                <Text style={{ fontSize: 18, fontFamily: 'Poppins-SemiBold', color: 'black' }}>Jl.Gatot Subroto</Text>
-                <Text style={{ fontSize: 16, fontFamily: 'Poppins-Regular', color: 'black' }}>Kerusakan : Sedang</Text>
-              </View>
-            </View>
+            {
+              this.state.daftarMarker.map((item, index) => (
+                <TouchableOpacity style={{ flexDirection: 'row' }} 
+                  key={index}
+                  onPress={() => this.props.navigation.navigate('MapsCoor',
+                {marker: item})}>
+                  <View style={{ marginRight: 15, marginVertical: 10 }}>
+                    <Image source={ImageHome} style={styles.ImageContent} />
+                  </View>
+                  <View style={{ marginVertical: 10 }}>
+                    <Text style={{ fontSize: 18, fontFamily: 'Poppins-SemiBold', color: 'black' }}>{item.title}</Text>
+                    <Text style={{ fontSize: 16, fontFamily: 'Poppins-Regular', color: 'black' }}>Kerusakan : {item.status}</Text>
+                  </View>
+                </TouchableOpacity>
+              ))
+            }
           </View>
         </View>
       </ScrollView>

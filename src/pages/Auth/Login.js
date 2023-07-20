@@ -1,17 +1,60 @@
-import { BackHandler, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { Alert, BackHandler, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import React, { useState, useEffect } from 'react'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Login = ({ navigation }) => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+
+    const saveData = async (data) => {
+        try {
+            const token = JSON.stringify(data.Token)
+            const dataUser = JSON.stringify(data.data)
+            await AsyncStorage.setItem('dataUser', dataUser)
+            await AsyncStorage.setItem('Token', token)
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
     const prosesLogin = () => {
         if (email == "" && password == "" || email == "" || password == "") {
             console.warn("Isi Email dan Password !!!")
         } else {
-            navigation.navigate('MainApp')
+            fetch('https://957e-149-113-22-205.ngrok-free.app/api/login', {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email, password }),
+            })
+                .then((Response) => Response.json())
+                .then((responseJson) => {
+                    if (responseJson.success) {
+                        console.log(responseJson)
+                        saveData(responseJson)
+                        return navigation.navigate('MainApp')
+                    } else {
+                        return Alert.alert('Warning', 'Username Atau Password Salah')
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
         }
     }
+
     useEffect(() => {
+        const cekToken = async () => {
+            AsyncStorage.getItem('Token')
+                .then((Token) => {
+                    if (Token) {
+                        navigation.navigate('MainApp');
+                    }
+                })
+        }
+        cekToken();
         const backAction = () => {
             BackHandler.exitApp()
             return true;
@@ -23,6 +66,7 @@ const Login = ({ navigation }) => {
         );
         return () => backHandler.remove();
     }, [])
+
     return (
         <View>
             <StatusBar barStyle="dark-content" backgroundColor="grey" />
@@ -33,7 +77,8 @@ const Login = ({ navigation }) => {
                     <TextInput
                         style={{ fontSize: 18, color: 'black', paddingHorizontal: 10 }}
                         placeholder='Masukkan Email'
-                        onChange={(email) => setEmail(email)}
+                        onChangeText={(email) => setEmail(email)}
+                        value={email}
                     />
                 </View>
                 <Text style={styles.label}>Password</Text>
@@ -41,7 +86,8 @@ const Login = ({ navigation }) => {
                     <TextInput
                         style={{ fontSize: 18, color: 'black', paddingHorizontal: 10 }}
                         placeholder='Password'
-                        onChange={(password) => setPassword(password)}
+                        onChangeText={(password) => setPassword(password)}
+                        value={password}
                     />
                 </View>
                 <TouchableOpacity style={styles.btn} onPress={() => prosesLogin()}>

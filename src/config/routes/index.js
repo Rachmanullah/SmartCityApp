@@ -71,7 +71,7 @@ const MyStack = () => {
             <Stack.Screen name='Splash' component={Splash} options={{ headerShown: false }} />
             <Stack.Screen name='Login' component={Login} options={{ headerShown: false }} />
             <Stack.Screen name='Register' component={Register} options={{ headerShown: false }} />
-            <Stack.Screen name='MainApp' component={MainApp} options={{ git headerShown: false }} />
+            <Stack.Screen name='MainApp' component={MainApp} options={{ headerShown: false }} />
             <Stack.Screen name="Personal Data" component={Personal} options={{ headerShown: true }} />
             <Stack.Screen name="Maps" component={Maps} options={{ headerShown: true }} />
             <Stack.Screen name='LaporanNew' component={LaporanNew} options={{ headerShown: true, title: 'Buat Laporan' }} />

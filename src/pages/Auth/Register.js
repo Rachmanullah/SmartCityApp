@@ -11,7 +11,7 @@ const Register = ({ navigation }) => {
         if (nama == "" || username == "" || email == "" || password == "" || alamat == "") {
             console.warn("Isi data dengan benar !!!")
         } else {
-            fetch('https://957e-149-113-22-205.ngrok-free.app/api/register', {
+            fetch('https://2a48-149-113-27-150.ngrok-free.app/api/register', {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
@@ -21,7 +21,7 @@ const Register = ({ navigation }) => {
             })
                 .then((Response) => Response.json())
                 .then((responseJson) => {
-                    if (responseJson.success) {
+                    if (responseJson) {
                         console.log(responseJson)
                         return navigation.navigate('Login')
                     } else {

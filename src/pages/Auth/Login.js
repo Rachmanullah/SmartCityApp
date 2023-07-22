@@ -8,7 +8,7 @@ const Login = ({ navigation }) => {
 
     const saveData = async (data) => {
         try {
-            const token = JSON.stringify(data.Token)
+            const token = JSON.stringify(data.token)
             const dataUser = JSON.stringify(data.data)
             await AsyncStorage.setItem('dataUser', dataUser)
             await AsyncStorage.setItem('Token', token)
@@ -21,7 +21,7 @@ const Login = ({ navigation }) => {
         if (email == "" && password == "" || email == "" || password == "") {
             console.warn("Isi Email dan Password !!!")
         } else {
-            fetch('https://957e-149-113-22-205.ngrok-free.app/api/login', {
+            fetch('https://2a48-149-113-27-150.ngrok-free.app/api/login', {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
@@ -31,9 +31,11 @@ const Login = ({ navigation }) => {
             })
                 .then((Response) => Response.json())
                 .then((responseJson) => {
-                    if (responseJson.success) {
+                    if (responseJson) {
                         console.log(responseJson)
                         saveData(responseJson)
+                        setEmail("")
+                        setPassword("")
                         return navigation.navigate('MainApp')
                     } else {
                         return Alert.alert('Warning', 'Username Atau Password Salah')

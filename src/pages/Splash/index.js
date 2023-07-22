@@ -1,11 +1,20 @@
 import { View, Text, Image, StyleSheet, ImageBackground, StatusBar } from 'react-native'
 import React, { useEffect } from 'react'
 import { BackgroundSplash, Kontraktor } from '../../assets'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Splash = ({ navigation }) => {
   useEffect(() => {
     setTimeout(() => {
-      navigation.navigate('Login')
+      const cekToken = async () => {
+        const Token = await AsyncStorage.getItem('Token');
+        if (Token) {
+          navigation.navigate('MainApp');
+        } else {
+          navigation.navigate('Login');
+        }
+      }
+      cekToken();
     }, 3000)
   }, [navigation])
   return (

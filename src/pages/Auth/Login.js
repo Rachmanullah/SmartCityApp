@@ -1,10 +1,11 @@
-import { Alert, BackHandler, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { Alert, BackHandler, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View, ActivityIndicator } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Login = ({ navigation }) => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const [isLoading, setIsLoading] = useState(false);
 
     const saveData = async (data) => {
         try {
@@ -18,10 +19,11 @@ const Login = ({ navigation }) => {
     }
 
     const prosesLogin = () => {
+        setIsLoading(true)
         if (email == "" && password == "" || email == "" || password == "") {
             console.warn("Isi Email dan Password !!!")
         } else {
-            fetch('https://2a48-149-113-27-150.ngrok-free.app/api/login', {
+            fetch('https://d61f-149-113-49-105.ngrok-free.app/api/login', {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
@@ -31,13 +33,14 @@ const Login = ({ navigation }) => {
             })
                 .then((Response) => Response.json())
                 .then((responseJson) => {
-                    if (responseJson) {
+                    if (responseJson.success) {
                         console.log(responseJson)
                         saveData(responseJson)
                         setEmail("")
                         setPassword("")
-                        return navigation.navigate('MainApp')
-                    } else {
+                        setIsLoading(false)
+                        return navigation.navigate('MainApp', { screen: 'Home' })
+                    } else if (responseJson.error) {
                         return Alert.alert('Warning', 'Username Atau Password Salah')
                     }
                 })
@@ -72,42 +75,50 @@ const Login = ({ navigation }) => {
     return (
         <View>
             <StatusBar barStyle="dark-content" backgroundColor="grey" />
-            <Text style={styles.Text}>Sistem Pelayanan Pelaporan Jalan Rusak</Text>
-            <View style={{ marginTop: 150, alignItems: 'center', marginHorizontal: 10, }}>
-                <Text style={styles.label}>Email</Text>
-                <View style={styles.inputan}>
-                    <TextInput
-                        style={{ fontSize: 18, color: 'black', paddingHorizontal: 10 }}
-                        placeholder='Masukkan Email'
-                        onChangeText={(email) => setEmail(email)}
-                        value={email}
-                    />
-                </View>
-                <Text style={styles.label}>Password</Text>
-                <View style={styles.inputan}>
-                    <TextInput
-                        style={{ fontSize: 18, color: 'black', paddingHorizontal: 10 }}
-                        placeholder='Password'
-                        onChangeText={(password) => setPassword(password)}
-                        value={password}
-                    />
-                </View>
-                <TouchableOpacity style={styles.btn} onPress={() => prosesLogin()}>
-                    <Text style={{
-                        fontFamily: 'TitiliumWeb-Bold',
-                        fontSize: 18,
-                        color: 'white'
-                    }}>
-                        Masuk
-                    </Text>
-                </TouchableOpacity>
-                <View style={{ flexDirection: 'row' }}>
-                    <Text style={{ fontFamily: 'TitilliumWeb-Regular', paddingHorizontal: 5, fontSize: 15, color: 'black' }}>Belum Punya Akun?</Text>
-                    <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-                        <Text style={{ fontFamily: 'TitilliumWeb-Bold', color: '#6A7FEE', paddingHorizontal: 5, fontSize: 15 }}>Daftar</Text>
-                    </TouchableOpacity>
-                </View>
-            </View>
+            {
+                isLoading ? (
+                    <ActivityIndicator style={{ marginTop: '50%' }} size={'large'} color='#6A7FEE' />
+                ) : (
+                    <View>
+                        <Text style={styles.Text}>Sistem Pelayanan Pelaporan Jalan Rusak</Text>
+                        <View style={{ marginTop: 150, alignItems: 'center', marginHorizontal: 10, }}>
+                            <Text style={styles.label}>Email</Text>
+                            <View style={styles.inputan}>
+                                <TextInput
+                                    style={{ fontSize: 18, color: 'black', paddingHorizontal: 10 }}
+                                    placeholder='Masukkan Email'
+                                    onChangeText={(email) => setEmail(email)}
+                                    value={email}
+                                />
+                            </View>
+                            <Text style={styles.label}>Password</Text>
+                            <View style={styles.inputan}>
+                                <TextInput
+                                    style={{ fontSize: 18, color: 'black', paddingHorizontal: 10 }}
+                                    placeholder='Password'
+                                    onChangeText={(password) => setPassword(password)}
+                                    value={password}
+                                />
+                            </View>
+                            <TouchableOpacity style={styles.btn} onPress={() => prosesLogin()}>
+                                <Text style={{
+                                    fontFamily: 'TitiliumWeb-Bold',
+                                    fontSize: 18,
+                                    color: 'white'
+                                }}>
+                                    Masuk
+                                </Text>
+                            </TouchableOpacity>
+                            <View style={{ flexDirection: 'row' }}>
+                                <Text style={{ fontFamily: 'TitilliumWeb-Regular', paddingHorizontal: 5, fontSize: 15, color: 'black' }}>Belum Punya Akun?</Text>
+                                <TouchableOpacity onPress={() => navigation.navigate('Register')}>
+                                    <Text style={{ fontFamily: 'TitilliumWeb-Bold', color: '#6A7FEE', paddingHorizontal: 5, fontSize: 15 }}>Daftar</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    </View>
+                )
+            }
         </View>
     )
 }

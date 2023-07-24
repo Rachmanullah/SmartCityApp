@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, StyleSheet, View, Image, ScrollView, TouchableOpacity } from 'react-native';
+import { Text, StyleSheet, View, Image, ScrollView, TouchableOpacity, Dimensions } from 'react-native';
 import { ImageHome } from '../../assets';
 
 export default class Laporan extends Component {
@@ -43,7 +43,7 @@ export default class Laporan extends Component {
   render() {
     return (
       <ScrollView style={{ paddingHorizontal: 20, paddingTop: 20 }}>
-        <Text style={{ fontFamily: 'Poppins-Bold', fontSize: 24, color: 'black' }}>
+        <Text style={{ fontFamily: 'Poppins-Bold', fontSize: 24, color: 'black', marginTop: windowHeight / 15 }}>
           Daftar Laporan Anda
         </Text>
         {
@@ -78,7 +78,8 @@ export default class Laporan extends Component {
     );
   }
 }
-
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 const styles = StyleSheet.create({
   ImageContent: {
     borderRadius: 20,

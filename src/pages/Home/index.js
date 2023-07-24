@@ -142,7 +142,7 @@ const windowHeight = Dimensions.get('window').height;
 const styles = StyleSheet.create({
   ImageHome: {
     borderRadius: 20,
-    marginTop: '10%',
+    marginTop: windowHeight / 13,
     marginHorizontal: 10,
     width: windowWidth - 20,
   },

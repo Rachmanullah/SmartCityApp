@@ -11,7 +11,7 @@ const AkunMenu = () => {
             await AsyncStorage.getItem('Token')
                 .then((Token) => {
                     console.log(Token);
-                    fetch('https://2a48-149-113-27-150.ngrok-free.app/api/logout', {
+                    fetch('https://d61f-149-113-49-105.ngrok-free.app/api/logout', {
                         method: 'POST',
                         headers: {
                             Accept: 'application/json',

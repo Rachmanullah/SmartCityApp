@@ -1,7 +1,8 @@
-import { StyleSheet, Text, TextInput, TouchableOpacity, View, StatusBar, ScrollView } from 'react-native'
+import { StyleSheet, Text, TextInput, TouchableOpacity, View, StatusBar, ScrollView, ActivityIndicator } from 'react-native'
 import React, { useState } from 'react'
 
 const Register = ({ navigation }) => {
+    const [isLoading, setIsLoading] = useState(false);
     const [nama, setNama] = useState("")
     const [username, setUsername] = useState("")
     const [email, setEmail] = useState("")
@@ -11,7 +12,8 @@ const Register = ({ navigation }) => {
         if (nama == "" || username == "" || email == "" || password == "" || alamat == "") {
             console.warn("Isi data dengan benar !!!")
         } else {
-            fetch('https://2a48-149-113-27-150.ngrok-free.app/api/register', {
+            setIsLoading(true)
+            fetch('https://d61f-149-113-49-105.ngrok-free.app/api/register', {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
@@ -23,6 +25,7 @@ const Register = ({ navigation }) => {
                 .then((responseJson) => {
                     if (responseJson) {
                         console.log(responseJson)
+                        setIsLoading(false)
                         return navigation.navigate('Login')
                     } else {
                         return Alert.alert('Warning', 'Kesalahan Pada Data')
@@ -36,70 +39,78 @@ const Register = ({ navigation }) => {
     return (
         <ScrollView>
             <StatusBar barStyle="dark-content" backgroundColor="grey" />
-            <Text style={styles.Text}>Sistem Pelayanan Pelaporan Jalan Rusak</Text>
-            <View style={{ marginTop: 15, alignItems: 'center', marginHorizontal: 10, }}>
-                <Text style={styles.label}>Nama Lengkap</Text>
-                <View style={styles.inputan}>
-                    <TextInput
-                        style={{ fontSize: 18, paddingHorizontal: 10, color: 'black' }}
-                        placeholder='Masukkan Nama Lengkap'
-                        onChangeText={(nama) => setNama(nama)}
-                        value={nama}
-                    />
-                </View>
-                <Text style={styles.label}>Username</Text>
-                <View style={styles.inputan}>
-                    <TextInput
-                        style={{ fontSize: 18, paddingHorizontal: 10, color: 'black' }}
-                        placeholder='Masukkan Username'
-                        onChangeText={(username) => setUsername(username)}
-                        value={username}
-                    />
-                </View>
-                <Text style={styles.label}>Email</Text>
-                <View style={styles.inputan}>
-                    <TextInput
-                        style={{ fontSize: 18, paddingHorizontal: 10, color: 'black' }}
-                        placeholder='Masukkan Email'
-                        inputMode='email'
-                        onChangeText={(email) => setEmail(email)}
-                        value={email}
-                    />
-                </View>
-                <Text style={styles.label}>Password</Text>
-                <View style={styles.inputan}>
-                    <TextInput
-                        style={{ fontSize: 18, paddingHorizontal: 10, color: 'black' }}
-                        placeholder='Password'
-                        onChangeText={(password) => setPassword(password)}
-                        value={password}
-                    />
-                </View>
-                <Text style={styles.label}>Alamat</Text>
-                <View style={styles.inputan}>
-                    <TextInput
-                        style={{ fontSize: 18, paddingHorizontal: 10, color: 'black' }}
-                        placeholder='Alamat'
-                        onChangeText={(alamat) => setAlamat(alamat)}
-                        value={alamat}
-                    />
-                </View>
-                <TouchableOpacity style={styles.btn} onPress={() => daftar()}>
-                    <Text style={{
-                        fontFamily: 'TitiliumWeb-Bold',
-                        fontSize: 18,
-                        color: 'white'
-                    }}>
-                        Daftar
-                    </Text>
-                </TouchableOpacity>
-                <View style={{ flexDirection: 'row' }}>
-                    <Text style={{ fontFamily: 'TitilliumWeb-Regular', paddingHorizontal: 5, color: 'black', fontSize: 15 }}>Sudah Punya Akun?</Text>
-                    <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-                        <Text style={{ fontFamily: 'TitilliumWeb-Bold', color: '#6A7FEE', paddingHorizontal: 5, fontSize: 15 }}>Masuk</Text>
-                    </TouchableOpacity>
-                </View>
-            </View>
+            {
+                isLoading ? (
+                    <ActivityIndicator style={{ marginTop: '50%' }} size={'large'} color='#6A7FEE' />
+                ) : ( 
+                    <View>
+                            <Text style={styles.Text}>Sistem Pelayanan Pelaporan Jalan Rusak</Text>
+                            <View style={{ marginTop: 15, alignItems: 'center', marginHorizontal: 10, }}>
+                                <Text style={styles.label}>Nama Lengkap</Text>
+                                <View style={styles.inputan}>
+                                    <TextInput
+                                        style={{ fontSize: 18, paddingHorizontal: 10, color: 'black' }}
+                                        placeholder='Masukkan Nama Lengkap'
+                                        onChangeText={(nama) => setNama(nama)}
+                                        value={nama}
+                                    />
+                                </View>
+                                <Text style={styles.label}>Username</Text>
+                                <View style={styles.inputan}>
+                                    <TextInput
+                                        style={{ fontSize: 18, paddingHorizontal: 10, color: 'black' }}
+                                        placeholder='Masukkan Username'
+                                        onChangeText={(username) => setUsername(username)}
+                                        value={username}
+                                    />
+                                </View>
+                                <Text style={styles.label}>Email</Text>
+                                <View style={styles.inputan}>
+                                    <TextInput
+                                        style={{ fontSize: 18, paddingHorizontal: 10, color: 'black' }}
+                                        placeholder='Masukkan Email'
+                                        inputMode='email'
+                                        onChangeText={(email) => setEmail(email)}
+                                        value={email}
+                                    />
+                                </View>
+                                <Text style={styles.label}>Password</Text>
+                                <View style={styles.inputan}>
+                                    <TextInput
+                                        style={{ fontSize: 18, paddingHorizontal: 10, color: 'black' }}
+                                        placeholder='Password'
+                                        onChangeText={(password) => setPassword(password)}
+                                        value={password}
+                                    />
+                                </View>
+                                <Text style={styles.label}>Alamat</Text>
+                                <View style={styles.inputan}>
+                                    <TextInput
+                                        style={{ fontSize: 18, paddingHorizontal: 10, color: 'black' }}
+                                        placeholder='Alamat'
+                                        onChangeText={(alamat) => setAlamat(alamat)}
+                                        value={alamat}
+                                    />
+                                </View>
+                                <TouchableOpacity style={styles.btn} onPress={() => daftar()}>
+                                    <Text style={{
+                                        fontFamily: 'TitiliumWeb-Bold',
+                                        fontSize: 18,
+                                        color: 'white'
+                                    }}>
+                                        Daftar
+                                    </Text>
+                                </TouchableOpacity>
+                                <View style={{ flexDirection: 'row' }}>
+                                    <Text style={{ fontFamily: 'TitilliumWeb-Regular', paddingHorizontal: 5, color: 'black', fontSize: 15 }}>Sudah Punya Akun?</Text>
+                                    <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+                                        <Text style={{ fontFamily: 'TitilliumWeb-Bold', color: '#6A7FEE', paddingHorizontal: 5, fontSize: 15 }}>Masuk</Text>
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+                    </View>
+                )
+            }
         </ScrollView>
     )
 }

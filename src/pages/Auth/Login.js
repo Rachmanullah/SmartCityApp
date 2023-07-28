@@ -19,11 +19,11 @@ const Login = ({ navigation }) => {
     }
 
     const prosesLogin = () => {
-        setIsLoading(true)
         if (email == "" && password == "" || email == "" || password == "") {
-            console.warn("Isi Email dan Password !!!")
+            Alert.alert('Warning', 'Isi Email dan Password !!!')
         } else {
-            fetch('https://d61f-149-113-49-105.ngrok-free.app/api/login', {
+            setIsLoading(true)
+            fetch('http://rachmanullah-001-site1.dtempurl.com/api/login', {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
@@ -34,17 +34,19 @@ const Login = ({ navigation }) => {
                 .then((Response) => Response.json())
                 .then((responseJson) => {
                     if (responseJson.success) {
-                        console.log(responseJson)
+                        // console.log(responseJson)
                         saveData(responseJson)
                         setEmail("")
                         setPassword("")
                         setIsLoading(false)
                         return navigation.navigate('MainApp', { screen: 'Home' })
                     } else if (responseJson.error) {
+                        setIsLoading(false)
                         return Alert.alert('Warning', 'Username Atau Password Salah')
                     }
                 })
                 .catch((error) => {
+                    setIsLoading(false)
                     console.log(error);
                 });
         }
@@ -77,11 +79,14 @@ const Login = ({ navigation }) => {
             <StatusBar barStyle="dark-content" backgroundColor="grey" />
             {
                 isLoading ? (
-                    <ActivityIndicator style={{ marginTop: '50%' }} size={'large'} color='#6A7FEE' />
+                    <View style={{ flex: 1, alignItems: 'center', marginTop: '50%' }}>
+                        <ActivityIndicator size={'large'} color='#6A7FEE' />
+                        <Text style={{ marginTop: '2%', color: 'black' }}>Loading</Text>
+                    </View>
                 ) : (
                     <View>
                         <Text style={styles.Text}>Sistem Pelayanan Pelaporan Jalan Rusak</Text>
-                        <View style={{ marginTop: 150, alignItems: 'center', marginHorizontal: 10, }}>
+                        <View style={{ marginTop: '50%', alignItems: 'center', marginHorizontal: '5%', }}>
                             <Text style={styles.label}>Email</Text>
                             <View style={styles.inputan}>
                                 <TextInput
@@ -130,7 +135,7 @@ const styles = StyleSheet.create({
         fontSize: 30,
         fontFamily: 'Poppins-Bold',
         color: '#6A7FEE',
-        marginTop: 40,
+        marginTop: '15%',
         marginHorizontal: 10,
     },
     label: {

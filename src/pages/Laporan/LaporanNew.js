@@ -1,4 +1,4 @@
-import { Alert,ScrollView, StyleSheet, Text, TouchableOpacity, PermissionsAndroid, View, Image, TextInput, ActivityIndicator } from 'react-native'
+import { Alert, ScrollView, StyleSheet, Text, TouchableOpacity, PermissionsAndroid, View, Image, TextInput, ActivityIndicator } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { IconCamera, IconCompas } from '../../assets'
 import { useRoute } from '@react-navigation/native'
@@ -83,12 +83,12 @@ const LaporanNew = ({ navigation }) => {
             formData.append('lokasi', lokasi);
             formData.append('keterangan', keterangan);
             formData.append('kerusakan', kerusakan);
-            formData.append('foto', {
+            formData.append('file_foto', {
                 uri: ImageCamera.uri,
                 type: ImageCamera.type, // contoh: 'image/jpeg' atau 'image/png'
                 name: 'laporan_photo.jpg', // Nama berkas yang akan digunakan di server
             });
-            fetch('https://d61f-149-113-49-105.ngrok-free.app/api/laporan/store', {
+            fetch('http://rachmanullah-001-site1.dtempurl.com/api/laporan/store', {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
@@ -99,10 +99,10 @@ const LaporanNew = ({ navigation }) => {
             })
                 .then((Response) => Response.json())
                 .then((responseJson) => {
-                    console.log(responseJson)
+                    // console.log(responseJson)
                     if (responseJson.success) {
-                        setIsLoading(false)
                         Alert.alert('Success', responseJson.message)
+                        setIsLoading(false)
                         return navigation.navigate('MainApp', { screen: 'Home' })
                     } else {
                         Alert.alert('Warning', 'Tidak Dapat Memproses Laporan')
@@ -144,7 +144,10 @@ const LaporanNew = ({ navigation }) => {
         <ScrollView>
             {
                 isLoading ? (
-                    <ActivityIndicator style={{ marginTop: '50%' }} size={'large'} color='#6A7FEE' />
+                    <View style={{ flex: 1, alignItems: 'center', marginTop: '50%' }}>
+                        <ActivityIndicator size={'large'} color='#6A7FEE' />
+                        <Text style={{ marginTop: '2%', color: 'black' }}>Loading</Text>
+                    </View>
                 ) : (
                     <View style={{ marginHorizontal: 20 }}>
                         <Text style={{ fontFamily: 'Poppins-Regular', fontSize: 18, marginTop: 10, color: 'black' }}>

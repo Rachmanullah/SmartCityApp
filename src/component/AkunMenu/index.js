@@ -5,13 +5,12 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const AkunMenu = () => {
     const navigation = useNavigation();
-   
     const Logout = async () => {
         try {
             await AsyncStorage.getItem('Token')
                 .then((Token) => {
                     console.log(Token);
-                    fetch('https://d61f-149-113-49-105.ngrok-free.app/api/logout', {
+                    fetch('http://rachmanullah-001-site1.dtempurl.com/api/logout', {
                         method: 'POST',
                         headers: {
                             Accept: 'application/json',
@@ -23,7 +22,7 @@ const AkunMenu = () => {
                         .then((responseJson) => {
                             console.log(responseJson);
                             if (responseJson) {
-                                console.log(responseJson);
+                                // console.log(responseJson);
                                 AsyncStorage.removeItem('Token');
                                 AsyncStorage.removeItem('dataUser');
                                 navigation.navigate('Login');

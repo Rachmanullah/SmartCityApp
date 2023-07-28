@@ -35,8 +35,7 @@ export class MapsCoor extends Component {
                 PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
                 {
                     title: 'Ijin Akses Lokasi',
-                    message:
-                        'Tes',
+                    message: 'Ijinkan Akses Lokasi untuk mendeteksi titik koordinat anda.',
                     buttonNeutral: 'Ask Me Later',
                     buttonNegative: 'Cancel',
                     buttonPositive: 'OK',
@@ -66,7 +65,7 @@ export class MapsCoor extends Component {
             .then(data => {
                 if (data && data.display_name) {
                     const address = data.display_name;
-                    console.log('Alamat:', address);
+                    // console.log('Alamat:', address);
                     this.setState({ lokasi: address })
                 } else {
                     console.log('Gagal mendapatkan alamat.');
@@ -77,10 +76,13 @@ export class MapsCoor extends Component {
     render() {
 
         return (
-            <View >
+            <View>
                 {
                     this.state.isLoading ? (
-                        <ActivityIndicator style={{ marginTop: '50%' }} size={'large'} color='#6A7FEE' />
+                        <View style={{ flex: 1, alignItems: 'center', marginTop: '50%' }}>
+                            <ActivityIndicator size={'large'} color='#6A7FEE' />
+                            <Text style={{ marginTop: '2%', color: 'black' }}>Memuat Map</Text>
+                        </View>
                     ) : (
                         <View>
                             <View style={styles.container}>
@@ -88,24 +90,24 @@ export class MapsCoor extends Component {
                                     provider={PROVIDER_GOOGLE} // remove if not using Google Maps
                                     style={styles.map}
                                     region={{
-                                        latitude: this.props.route.params && this.props.route.params.marker ? this.props.route.params.marker.coordinate.latitude : this.state.userLocation.coords.latitude,
-                                        longitude: this.props.route.params && this.props.route.params.marker ? this.props.route.params.marker.coordinate.longitude : this.state.userLocation.coords.longitude,
+                                        latitude: this.props.route.params && this.props.route.params.marker ? Number(this.props.route.params.marker.latitude) : this.state.userLocation.coords.latitude,
+                                        longitude: this.props.route.params && this.props.route.params.marker ? Number(this.props.route.params.marker.longitude) : this.state.userLocation.coords.longitude,
                                         latitudeDelta: 0.005,
                                         longitudeDelta: 0.0021,
                                     }}
                                 >
                                     <Marker
-                                        pinColor={this.props.route.params && this.props.route.params.marker ? this.props.route.params.marker.color : '#6A7FEE'}
+                                        pinColor={'#6A7FEE'}
                                         key={'user'}
                                         coordinate={{
-                                            latitude: this.props.route.params && this.props.route.params.marker ? this.props.route.params.marker.coordinate.latitude : this.state.userLocation.coords.latitude,
-                                            longitude: this.props.route.params && this.props.route.params.marker ? this.props.route.params.marker.coordinate.longitude : this.state.userLocation.coords.longitude
+                                            latitude: this.props.route.params && this.props.route.params.marker ? Number(this.props.route.params.marker.latitude) : this.state.userLocation.coords.latitude,
+                                            longitude: this.props.route.params && this.props.route.params.marker ? Number(this.props.route.params.marker.longitude) : this.state.userLocation.coords.longitude
                                         }}
-                                        title={this.props.route.params && this.props.route.params.marker ? this.props.route.params.marker.title : 'Lokasi Saya'}
+                                        title={this.props.route.params && this.props.route.params.marker ? this.props.route.params.marker.lokasi : 'Lokasi Saya'}
                                     />
                                 </MapView>
                             </View>
-                            <ScrollView style={{ backgroundColor: 'white', padding: '5%' }}>
+                            <ScrollView  style={{ backgroundColor: 'white', padding: '5%' }}>
                                 <View style={{ flexDirection: 'row', marginBottom: 10, }}>
                                     <Text style={{ fontFamily: 'TitilliumWeb-Bold', fontSize: 16, color: 'black', paddingEnd: '26%' }}>Lokasi </Text>
                                     <Text style={{ fontFamily: 'TitilliumWeb-Bold', fontSize: 16, color: 'black', paddingEnd: 20 }}>:</Text>
@@ -114,12 +116,12 @@ export class MapsCoor extends Component {
                                 <View style={{ flexDirection: 'row', marginBottom: 20, }}>
                                     <Text style={{ fontFamily: 'TitilliumWeb-Bold', fontSize: 16, color: 'black', paddingEnd: '23%' }}>Latitude </Text>
                                     <Text style={{ fontFamily: 'TitilliumWeb-Bold', fontSize: 16, color: 'black', paddingEnd: 20 }}>:</Text>
-                                    <Text style={{ fontFamily: 'TitilliumWeb-Bold', fontSize: 16, color: 'black' }}>{this.props.route.params && this.props.route.params.marker ? this.props.route.params.marker.coordinate.latitude : this.state.userLocation.coords.latitude}</Text>
+                                    <Text style={{ fontFamily: 'TitilliumWeb-Bold', fontSize: 16, color: 'black' }}>{this.props.route.params && this.props.route.params.marker ? this.props.route.params.marker.latitude : this.state.userLocation.coords.latitude}</Text>
                                 </View>
                                 <View style={{ flexDirection: 'row', marginBottom: 20 }}>
                                     <Text style={{ fontFamily: 'TitilliumWeb-Bold', fontSize: 16, color: 'black', paddingEnd: '21%' }}>Longitude</Text>
                                     <Text style={{ fontFamily: 'TitilliumWeb-Bold', fontSize: 16, color: 'black', paddingEnd: 20 }}>:</Text>
-                                    <Text style={{ fontFamily: 'TitilliumWeb-Bold', fontSize: 16, color: 'black' }}>{this.props.route.params && this.props.route.params.marker ? this.props.route.params.marker.coordinate.longitude : this.state.userLocation.coords.longitude}</Text>
+                                    <Text style={{ fontFamily: 'TitilliumWeb-Bold', fontSize: 16, color: 'black' }}>{this.props.route.params && this.props.route.params.marker ? this.props.route.params.marker.longitude : this.state.userLocation.coords.longitude}</Text>
                                 </View>
                                 {
                                     !this.props.route.params &&
@@ -137,7 +139,6 @@ export class MapsCoor extends Component {
                                         </Text>
                                     </TouchableOpacity>
                                 }
-
                             </ScrollView>
                         </View>
                     )
@@ -151,7 +152,7 @@ export default MapsCoor
 const styles = StyleSheet.create({
     container: {
         // ...StyleSheet.absoluteFillObject,
-        height: '60%',
+        height: '50%',
         width: '100%',
         // justifyContent: 'flex-end',
         alignItems: 'center',

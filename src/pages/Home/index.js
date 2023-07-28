@@ -1,4 +1,4 @@
-import React, { Component, useEffect } from 'react';
+import React, { Component } from 'react';
 import {
   Image,
   ScrollView,
@@ -8,51 +8,32 @@ import {
   View,
   Dimensions,
   TouchableOpacity,
-  BackHandler
+  BackHandler,
+  ActivityIndicator
 } from 'react-native';
-import { ImageHome } from '../../assets';
+import { IconRefesh, ImageHome } from '../../assets';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default class Home extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      daftarMarker: [
-        {
-          id: 1,
-          title: 'Jl.Gatot Subroto',
-          status: 'Ringan',
-          coordinate: {
-            latitude: -7.986463982343888,
-            longitude: 112.6364327499232
-          },
-          color: 'cyan'
-        },
-        {
-          id: 2,
-          title: 'Jl.KedungKandang',
-          status: 'Sedang',
-          coordinate: {
-            latitude: -7.984824078480216,
-            longitude: 112.65654085809507
-          },
-          color: 'yellow'
-        },
-        {
-          id: 3,
-          title: 'Jl.Sawojajar',
-          status: 'Parah',
-          coordinate: {
-            latitude: -7.976718171631598,
-            longitude: 112.64561150989431
-          },
-          color: 'Red'
-        }
-      ]
+      daftarMarker: [],
+      Token: '',
+      isLoading: true,
     }
   }
-
-  componentDidMount() {
+  async componentDidMount() {
+    try {
+      const Token = await AsyncStorage.getItem('Token');
+      if (Token) {
+        this.setState({ Token: JSON.parse(Token) });
+        this.getMaker()
+      }
+    } catch (error) {
+      console.log(error);
+    }
     const backAction = () => {
       BackHandler.exitApp()
       return true;
@@ -64,6 +45,29 @@ export default class Home extends Component {
     );
     return () => backHandler.remove();
   }
+  getMaker = async () => {
+    try {
+      this.setState({ isLoading: true });
+      const response = await fetch('http://rachmanullah-001-site1.dtempurl.com/api/laporan', {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          'Authorization': 'Bearer ' + this.state.Token // Gunakan this.state.Token yang telah disimpan di state
+        },
+      });
+
+      const responseJson = await response.json();
+      if (responseJson.success) {
+        this.setState({ daftarMarker: responseJson.data });
+        this.setState({ isLoading: false });
+      } else {
+        console.log(responseJson.message);
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
 
   render() {
     return (
@@ -90,7 +94,7 @@ export default class Home extends Component {
                 textAlign: 'center',
                 color: 'black'
               }}>
-              Aplikasi pelaporan berbasis masyarakat yang dapat digunakan untuk
+              Aplikasi pelaporan masyarakat yang dapat digunakan untuk
               melaporkan jalan rusak. Pengguna dapat mengambil foto jalan rusak,
               menandai lokasi, dan mengirimkan laporan melalui aplikasi. Laporan
               tersebut akan diteruskan kepada pihak berwenang yang bertanggung
@@ -110,24 +114,44 @@ export default class Home extends Component {
             </TouchableOpacity>
           </View>
           <View style={{ paddingHorizontal: 20 }}>
-            <Text style={{ fontSize: 20, fontFamily: 'Poppins-ExtraBold', color: 'black' }}>
-              Daftar Jalan Rusak
-            </Text>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: '2%' }}>
+              <Text style={{ fontSize: 20, fontFamily: 'Poppins-ExtraBold', color: 'black' }}>
+                Daftar Jalan Rusak
+              </Text>
+              <TouchableOpacity style={{
+                backgroundColor: '#6A7FEE',
+                alignItems: 'center',
+                padding: 10,
+                marginTop: -5,
+                borderRadius: 10,
+              }}
+                onPress={() => this.getMaker()}
+              >
+                <Image source={IconRefesh} style={{ height: 20, width: 20 }} />
+              </TouchableOpacity>
+            </View>
             {
-              this.state.daftarMarker.map((item, index) => (
-                <TouchableOpacity style={{ flexDirection: 'row' }} 
-                  key={index}
-                  onPress={() => this.props.navigation.navigate('MapsCoor',
-                {marker: item})}>
-                  <View style={{ marginRight: 15, marginVertical: 10 }}>
-                    <Image source={ImageHome} style={styles.ImageContent} />
-                  </View>
-                  <View style={{ marginVertical: 10 }}>
-                    <Text style={{ fontSize: 18, fontFamily: 'Poppins-SemiBold', color: 'black' }}>{item.title}</Text>
-                    <Text style={{ fontSize: 16, fontFamily: 'Poppins-Regular', color: 'black' }}>Kerusakan : {item.status}</Text>
-                  </View>
-                </TouchableOpacity>
-              ))
+              this.state.isLoading ?
+                <View style={{ flex: 1, alignItems: 'center' }}>
+                  <ActivityIndicator size={'large'} color='#6A7FEE' />
+                  <Text style={{ marginTop: '2%', color: 'black' }}>Memuat Konten</Text>
+                </View>
+                :
+                this.state.daftarMarker.map((item, index) => (
+                  <TouchableOpacity style={{ flexDirection: 'row' }}
+                    key={index}
+                    onPress={() => this.props.navigation.navigate('MapsCoor',
+                      { marker: item })}>
+                    <View style={{ marginRight: 15, marginVertical: 10 }}>
+                      <Image source={{ uri: 'http://rachmanullah-001-site1.dtempurl.com/assets/storange/image_laporan/' + item.foto }} style={styles.ImageContent} />
+                    </View>
+                    <View style={{ marginVertical: 10 }}>
+                      <Text style={{ fontSize: 16, fontFamily: 'Poppins-SemiBold', color: 'black' }}>{item.lokasi.substr(0, 25)}</Text>
+                      <Text style={{ fontSize: 16, fontFamily: 'Poppins-Regular', color: 'black' }}>Keterangan : {item.keterangan}</Text>
+                      <Text style={{ fontSize: 16, fontFamily: 'Poppins-Regular', color: 'black' }}>Kerusakan : {item.kerusakan}</Text>
+                    </View>
+                  </TouchableOpacity>
+                ))
             }
           </View>
         </View>
@@ -162,7 +186,7 @@ const styles = StyleSheet.create({
   },
   ImageContent: {
     borderRadius: 20,
-    width: 150,
-    height: 100,
+    width: 100,
+    height: 80,
   }
 });

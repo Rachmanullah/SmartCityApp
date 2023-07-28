@@ -6,6 +6,7 @@ import IconHome from './IconHome.png'
 import IconHomeActive from './IconHomeActive.png'
 import IconCamera from './IconCamera.png'
 import IconCompas from './compas.png'
+import IconRefesh from './arrow.png'
 
 export {
     IconAkun,
@@ -16,4 +17,5 @@ export {
     IconHomeActive,
     IconCamera,
     IconCompas,
+    IconRefesh,
 }

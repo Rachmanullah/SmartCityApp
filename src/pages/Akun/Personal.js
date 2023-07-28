@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput,PermissionsAndroid, ScrollView } from 'react-native'
+import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput, PermissionsAndroid, ScrollView } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import { ImageHome } from '../../assets'
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -7,7 +7,7 @@ import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import Modal from "react-native-modal";
 
 const Personal = ({ navigation }) => {
-    const url = 'https://d61f-149-113-49-105.ngrok-free.app/assets/storange/image_user/'
+    const url = 'http://rachmanullah-001-site1.dtempurl.com/assets/storange/image_user/'
     const [Token, setToken] = useState(null)
     const [isLoading, setIsLoading] = useState(true);
     const [modal, setModal] = useState(false)
@@ -27,8 +27,8 @@ const Personal = ({ navigation }) => {
                 await AsyncStorage.getItem('dataUser').then((storedData) => {
                     const { id, nama, username, email, alamat, foto } = JSON.parse(storedData)
                     const fotos = {
-                        uri: url+foto,
-                        type: 'image/'+foto.split('.').pop(),
+                        uri: url + foto,
+                        type: 'image/' + foto.split('.').pop(),
                         name: foto,
                     }
                     setId(id)
@@ -37,7 +37,6 @@ const Personal = ({ navigation }) => {
                     setEmail(email)
                     setAlamat(alamat)
                     setFoto(fotos)
-                    // console.log(storedData);
                 })
                 await AsyncStorage.getItem('Token').then((Token) => {
                     const getToken = JSON.parse(Token)
@@ -106,12 +105,13 @@ const Personal = ({ navigation }) => {
             formData.append('username', username);
             formData.append('email', email);
             formData.append('alamat', alamat);
-            formData.append('foto', {
+            formData.append('file_foto', {
                 uri: foto.uri,
                 type: foto.type, // contoh: 'image/jpeg' atau 'image/png'
                 name: 'user_photo.jpg', // Nama berkas yang akan digunakan di server
             });
-            fetch('https://d61f-149-113-49-105.ngrok-free.app/api/update/' + id, {
+            console.log(foto);
+            fetch('http://rachmanullah-001-site1.dtempurl.com/api/update/' + id, {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
@@ -122,7 +122,6 @@ const Personal = ({ navigation }) => {
             })
                 .then((Response) => Response.json())
                 .then((responseJson) => {
-                    console.log(responseJson)
                     if (responseJson) {
                         const dataUser = JSON.stringify(responseJson.data)
                         AsyncStorage.setItem('dataUser', dataUser)
@@ -146,7 +145,10 @@ const Personal = ({ navigation }) => {
         <ScrollView>
             {
                 isLoading ? (
-                    <ActivityIndicator style={{ marginTop: '50%' }} size={'large'} color='#6A7FEE' />
+                    <View style={{ flex: 1, alignItems: 'center', marginTop: '50%' }}>
+                        <ActivityIndicator size={'large'} color='#6A7FEE' />
+                        <Text style={{ marginTop: '2%', color: 'black' }}>Loading</Text>
+                    </View>
                 ) : (
                     <View>
                         <TouchableOpacity style={{ alignItems: 'center', marginTop: 15 }} onPress={() => setModal(true)}>

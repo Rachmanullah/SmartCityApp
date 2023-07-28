@@ -7,7 +7,7 @@ import IconHomeActive from './IconHomeActive.png'
 import IconCamera from './IconCamera.png'
 import IconCompas from './compas.png'
 import IconRefesh from './arrow.png'
-
+import IconNull from './null.png'
 export {
     IconAkun,
     IconAkunActive,
@@ -18,4 +18,5 @@ export {
     IconCamera,
     IconCompas,
     IconRefesh,
+    IconNull,
 }

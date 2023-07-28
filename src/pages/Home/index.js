@@ -11,7 +11,7 @@ import {
   BackHandler,
   ActivityIndicator
 } from 'react-native';
-import { IconRefesh, ImageHome } from '../../assets';
+import { IconRefesh, ImageHome, IconNull } from '../../assets';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default class Home extends Component {
@@ -52,7 +52,7 @@ export default class Home extends Component {
         method: 'GET',
         headers: {
           Accept: 'application/json',
-          'Authorization': 'Bearer ' + this.state.Token // Gunakan this.state.Token yang telah disimpan di state
+          'Authorization': 'Bearer ' + this.state.Token 
         },
       });
 
@@ -123,7 +123,7 @@ export default class Home extends Component {
                 alignItems: 'center',
                 padding: 10,
                 marginTop: -5,
-                borderRadius: 10,
+                borderRadius: 50,
               }}
                 onPress={() => this.getMaker()}
               >
@@ -137,21 +137,33 @@ export default class Home extends Component {
                   <Text style={{ marginTop: '2%', color: 'black' }}>Memuat Konten</Text>
                 </View>
                 :
-                this.state.daftarMarker.map((item, index) => (
-                  <TouchableOpacity style={{ flexDirection: 'row' }}
-                    key={index}
-                    onPress={() => this.props.navigation.navigate('MapsCoor',
-                      { marker: item })}>
-                    <View style={{ marginRight: 15, marginVertical: 10 }}>
-                      <Image source={{ uri: 'http://rachmanullah-001-site1.dtempurl.com/assets/storange/image_laporan/' + item.foto }} style={styles.ImageContent} />
-                    </View>
-                    <View style={{ marginVertical: 10 }}>
-                      <Text style={{ fontSize: 16, fontFamily: 'Poppins-SemiBold', color: 'black' }}>{item.lokasi.substr(0, 25)}</Text>
-                      <Text style={{ fontSize: 16, fontFamily: 'Poppins-Regular', color: 'black' }}>Keterangan : {item.keterangan}</Text>
-                      <Text style={{ fontSize: 16, fontFamily: 'Poppins-Regular', color: 'black' }}>Kerusakan : {item.kerusakan}</Text>
-                    </View>
-                  </TouchableOpacity>
-                ))
+                <View>
+                  {
+                    this.state.daftarMarker.length == 0 ? (
+                      <View style={{ flex: 1, alignItems: 'center', marginVertical: '10%' }}>
+                        <Image source={IconNull} style={{ height: 100, width: 100, }} />
+                        <Text style={{ fontFamily: 'TitilliumWeb-Bold', fontSize: 15, color: 'black' }}>
+                          Tidak Ada Laporan Yang Diajukan
+                        </Text>
+                      </View>
+                    ) : (
+                      this.state.daftarMarker.map((item, index) => (
+                        <TouchableOpacity style={{ flexDirection: 'row' }}
+                          key={index}
+                          onPress={() => this.props.navigation.navigate('MapsCoor',
+                            { marker: item })}>
+                          <View style={{ marginRight: 15, marginVertical: 10 }}>
+                            <Image source={{ uri: 'http://rachmanullah-001-site1.dtempurl.com/assets/storange/image_laporan/' + item.foto }} style={styles.ImageContent} />
+                          </View>
+                          <View style={{ marginVertical: 10 }}>
+                            <Text style={{ fontSize: 16, fontFamily: 'Poppins-SemiBold', color: 'black' }}>{item.lokasi.substr(0, 25)}</Text>
+                            <Text style={{ fontSize: 16, fontFamily: 'Poppins-Regular', color: 'black' }}>Keterangan : {item.keterangan}</Text>
+                            <Text style={{ fontSize: 16, fontFamily: 'Poppins-Regular', color: 'black' }}>Kerusakan : {item.kerusakan}</Text>
+                          </View>
+                        </TouchableOpacity>
+                      )))
+                  }
+                </View>
             }
           </View>
         </View>

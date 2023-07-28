@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Text, StyleSheet, View, Image, ScrollView, TouchableOpacity, Dimensions, ActivityIndicator } from 'react-native';
-import { IconRefesh, ImageHome } from '../../assets';
+import { IconNull, IconRefesh, ImageHome } from '../../assets';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default class Laporan extends Component {
@@ -66,13 +66,14 @@ export default class Laporan extends Component {
             backgroundColor: '#6A7FEE',
             alignItems: 'center',
             padding: 10,
-            borderRadius: 10,
+            borderRadius: 50,
           }}
             onPress={() => this.getMaker()}
           >
-            <Image source={IconRefesh} style={{ height: 20, width: 20 }} />
+            <Image source={IconRefesh} style={{ height: 20, width: 20, }} />
           </TouchableOpacity>
         </View>
+
         {
           this.state.isLoading ?
             <View style={{ flex: 1, alignItems: 'center', marginTop: '50%' }}>
@@ -82,21 +83,31 @@ export default class Laporan extends Component {
             :
             <View>
               {
-                this.state.daftarMarker.map((item, index) => (
-                  <TouchableOpacity style={{ flexDirection: 'row' }}
-                    key={index}
-                    onPress={() => this.props.navigation.navigate('MapsCoor',
-                      { marker: item })}>
-                    <View style={{ marginRight: 15, marginVertical: 10 }}>
-                      <Image source={{ uri: 'http://rachmanullah-001-site1.dtempurl.com/assets/storange/image_laporan/' + item.foto }} style={styles.ImageContent} />
-                    </View>
-                    <View style={{ marginVertical: 10 }}>
-                      <Text style={{ fontSize: 16, fontFamily: 'Poppins-SemiBold', color: 'black' }}>{item.lokasi.substr(0, 25)}</Text>
-                      <Text style={{ fontSize: 16, fontFamily: 'Poppins-Regular', color: 'black' }}>Keterangan : {item.keterangan}</Text>
-                      <Text style={{ fontSize: 16, fontFamily: 'Poppins-Regular', color: 'black' }}>Kerusakan : {item.kerusakan}</Text>
-                    </View>
-                  </TouchableOpacity>
-                ))
+                this.state.daftarMarker.length == 0 ? (
+                  <View style={{ flex: 1, alignItems: 'center', marginVertical: '50%' }}>
+                    <Image source={IconNull} style={{ height: 100, width: 100, }} />
+                    <Text style={{ fontFamily: 'TitilliumWeb-Bold', fontSize: 15, color: 'black' }}>
+                      Anda Belum Mengajukan Laporan
+                    </Text>
+                  </View>
+                ) : (
+                  this.state.daftarMarker.map((item, index) => (
+                    <TouchableOpacity style={{ flexDirection: 'row' }}
+                      key={index}
+                      onPress={() => this.props.navigation.navigate('MapsCoor',
+                        { marker: item })}>
+                      <View style={{ marginRight: 15, marginVertical: 10 }}>
+                        <Image source={{ uri: 'http://rachmanullah-001-site1.dtempurl.com/assets/storange/image_laporan/' + item.foto }} style={styles.ImageContent} />
+                      </View>
+                      <View style={{ marginVertical: 10 }}>
+                        <Text style={{ fontSize: 16, fontFamily: 'Poppins-SemiBold', color: 'black' }}>{item.lokasi.substr(0, 25)}</Text>
+                        <Text style={{ fontSize: 16, fontFamily: 'Poppins-Regular', color: 'black' }}>Keterangan : {item.keterangan}</Text>
+                        <Text style={{ fontSize: 16, fontFamily: 'Poppins-Regular', color: 'black' }}>Kerusakan : {item.kerusakan}</Text>
+                        <Text style={{ fontSize: 16, fontFamily: 'Poppins-Regular', color: 'black' }}>Status : {item.status}</Text>
+                      </View>
+                    </TouchableOpacity>
+                  ))
+                )
               }
               <View style={{ alignItems: 'center' }}>
                 <TouchableOpacity style={styles.btn} onPress={() => this.props.navigation.navigate('LaporanNew')} >
